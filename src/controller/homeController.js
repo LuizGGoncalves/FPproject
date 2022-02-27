@@ -1,3 +1,4 @@
+
 exports.index = (req,res) => {
-    res.send('Funcionando');
+    res.render('index');
 }

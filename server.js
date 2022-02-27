@@ -1,41 +1,30 @@
 const express = require('express');
 const session = require('express-session');
-const Sequelize = require('sequelize');
-const SessionStore = require('connect-session-sequelize')(session.Store);
+const {dbConnection,connection} = require('./src/database/index');
+const MySqlStore = require("express-mysql-session")(session);
 const flash = require('connect-flash');
 const path = require('path')
 const app = express();
-const csurf = require('csurf');
-const routes = require('./routes')
+const csrf = require('csurf');
+const routes = require('./routes');
+const { csrfMiddleware } = require('./src/middlewares/middleware');
 
 /*Banco de dados*/
-const sequelize = new Sequelize('jgproject', 'root', null, {
-    host: 'localhost',
-    port: '3306',
-    dialect: 'mysql',
-});
-dbconnection = async() => {
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully')
-        app.emit('DbReady');
-    } catch (e) {
-        console.log(e)
-        console.log('Connection fail whit DB');
-    }
-}
-/*Configurando a session */
-const sequelizeSessionStore = new SessionStore({db: sequelize});
+const sessionStore = new MySqlStore({
+    host:'localhost',
+    port: 3306,
+    user:'root',
+    password: '',
+    database:'fpproject',
+})
 const sessionOptions = session({
-    secret:'asdasdasdasd',
-    store: sequelizeSessionStore,
+    key: 'session_cookie_name',
+    secret: 'asdasdasdasd',
+    store: sessionStore,
     resave: false,
     saveUninitialized:false,
-    cookie:{
-        maxAge: 1000*60*15,
-        httOnly: true
-    }
-})
+});
+
 /*Configurando Express */
 app.use(express.json());
 app.use(sessionOptions);
@@ -45,8 +34,12 @@ app.set(express.static(path.resolve(__dirname,'public')));
 app.set('views', path.resolve(__dirname,'src','views'));
 app.set('view engine','ejs');
 
+/*CRSF */
+app.use(csrf());
+app.use(csrfMiddleware);
+
 /* Inicio Servidor */
-dbconnection();
+dbConnection(connection,app);
 app.on('DbReady',()=>{
     app.use(routes);
     app.listen(3000,() =>{
