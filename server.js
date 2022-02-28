@@ -7,7 +7,7 @@ const path = require('path')
 const app = express();
 const csrf = require('csurf');
 const routes = require('./routes');
-const { csrfMiddleware } = require('./src/middlewares/middleware');
+const { csrfMiddleware,middlewareVariaveis } = require('./src/middlewares/middleware');
 
 /*Banco de dados*/
 const sessionStore = new MySqlStore({
@@ -37,6 +37,9 @@ app.set('view engine','ejs');
 /*CRSF */
 app.use(csrf());
 app.use(csrfMiddleware);
+
+/*middleware*/
+app.use(middlewareVariaveis);
 
 /* Inicio Servidor */
 dbConnection(connection,app);

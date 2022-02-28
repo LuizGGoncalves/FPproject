@@ -2,6 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 class User extends Model {
+    
     static init(sequelize) {
         super.init({
             name: {
@@ -28,6 +29,10 @@ class User extends Model {
             }
         })
         return this;
+    }
+
+    async userExist(){
+        
     }
 }
 
