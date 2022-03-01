@@ -1,10 +1,14 @@
 const Sequelize = require('sequelize');
 const dbConfig = require('../config/database');
 const User = require('../models/User')
+const Aluno = require('../models/Aluno')
+const Treinador = require('../models/Treinador')
 
 const connection = new Sequelize(dbConfig);
 
 User.init(connection);
+Aluno.init(connection);
+Treinador.init(connection);
 
  dbConnection = async (connection,app) => {
     try {

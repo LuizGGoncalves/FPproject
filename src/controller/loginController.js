@@ -19,7 +19,6 @@ exports.login = async (req,res) => {
         req.session.user = usuario;
         req.session.save(()=>{
             console.log('Funcionou')
-            console.log(req.session.user);
             return res.redirect('/')
         })
 
@@ -41,8 +40,10 @@ exports.registerIndex = (req,res) => {
 
 exports.register = async (req,res) => {
     try{
-        const novoUser = await User.create(req.body);
-        return res.send(novoUser);
+        //const novoUser = await User.create(req.body);
+        if(req.body.userType){
+            console.log(req.body.userType);
+        }
     }catch(e){
         console.log(e);
         res.send('deu ruim mano',e)

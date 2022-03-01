@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcryptjs');
+const Aluno = require('../models/Aluno')
 
-class User extends Model {
+class Treinador extends Model {
     
     static init(sequelize) {
         super.init({
@@ -16,22 +16,22 @@ class User extends Model {
             hashPassword: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                defaultValue:''
+                defaultValue: ''
             },
             password: {
                 type: DataTypes.VIRTUAL,
                 defaultValue: '',
-            }
+            },           
         }, { sequelize });
         this.addHook('beforeSave', async (user) => {
-            if(user.password) {
+            if (user.password) {
                 user.hashPassword = await bcrypt.hash(user.password, 8);
             }
         })
+        this.hasMany(Aluno,{as: 'treinadores', foreignKey: 'treinadorId'})
         return this;
     }
 }
 
 
-
-module.exports =  User
+module.exports = Treinador

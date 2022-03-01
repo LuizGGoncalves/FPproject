@@ -21,10 +21,21 @@
               <div class="mb-3">
                 <label for="name" class="form-label">Nome:</label>
                 <input name="name" type="text" class="form-control" id="name">
-              <div class="mb-3 form-check">
-                <input name="remember" type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Salvar Usuario</label>
-              </div class='mx-auto'>
+              </div>
+              <div class="mb-3">
+                <div class="form-check form-switch">
+                  <label class="form-check-label" for="UserType">Personal/Treinador.</label>
+                  <input name="userType" class="form-check-input" type="checkbox" role="switch" id="UserType">
+                </div>
+              </div>
+              <div class="mb-3">
+                <select name="treinadorId" class="form-select" aria-label="Default select example">
+                  <option selected>Selecione o seu Treinador</option>
+                  <option value="1">Pedro</option>
+                  <option value="2">Marcelo</option>
+                  <option value="3">Beth</option>
+                </select>
+              </div>
               <div class="d-grid gap-2 col-6 mx-auto">
                 <button type="submit" class="btn btn-primary">Registrar</button>
               </div>
