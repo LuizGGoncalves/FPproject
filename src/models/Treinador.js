@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const Aluno = require('../models/Aluno')
+const bcrypt = require('bcryptjs');
 
 class Treinador extends Model {
     
@@ -22,13 +23,12 @@ class Treinador extends Model {
                 type: DataTypes.VIRTUAL,
                 defaultValue: '',
             },           
-        }, { sequelize });
-        this.addHook('beforeSave', async (user) => {
-            if (user.password) {
-                user.hashPassword = await bcrypt.hash(user.password, 8);
+        }, { sequelize, tableName:"treinadores"});
+        this.addHook('beforeSave', async (treinador) => {
+            if (treinador.password) {
+                treinador.hashPassword = await bcrypt.hash(treinador.password, 8);
             }
         })
-        this.hasMany(Aluno,{as: 'treinadores', foreignKey: 'treinadorId'})
         return this;
     }
 }

@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
-const Treinador = require('../models/Treinador')
+const Treinador = require('../models/Treinador');
+const bcrypt = require('bcryptjs');
 
 class Aluno extends Model{
     
@@ -53,11 +54,10 @@ class Aluno extends Model{
                 user.hashPassword = await bcrypt.hash(user.password, 8);
             }
         })
-        return this;
     }
-    static associate(models) {
-        this.belongsTo(models.File);
-      }
+    static associate(models){
+        this.belongsTo(models.Treinador, { foreignKey: 'treinador_id', as: 'treinador'});
+    }
 }
 
 module.exports = Aluno

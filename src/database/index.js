@@ -10,6 +10,8 @@ User.init(connection);
 Aluno.init(connection);
 Treinador.init(connection);
 
+Aluno.associate(connection.models);
+
  dbConnection = async (connection,app) => {
     try {
         await connection.authenticate();

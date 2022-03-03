@@ -31,9 +31,9 @@
               <div class="mb-3">
                 <select name="treinadorId" class="form-select" aria-label="Default select example">
                   <option selected>Selecione o seu Treinador</option>
-                  <option value="1">Pedro</option>
-                  <option value="2">Marcelo</option>
-                  <option value="3">Beth</option>
+                  <% treinadoresList.forEach(treinador => { %> 
+                  <option value=<%= treinador.dataValues.id%> ><%= treinador.dataValues.name%> </option>
+                  <% }); %> 
                 </select>
               </div>
               <div class="d-grid gap-2 col-6 mx-auto">

@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs/dist/bcrypt');
 const flash = require('connect-flash/lib/flash');
+const Aluno = require('../models/Aluno');
+const Treinador = require('../models/Treinador');
 const User = require('../models/User')
 
 exports.index = (req,res) => {
@@ -40,9 +42,13 @@ exports.registerIndex = (req,res) => {
 
 exports.register = async (req,res) => {
     try{
-        //const novoUser = await User.create(req.body);
-        if(req.body.userType){
-            console.log(req.body.userType);
+        if(req.body.userType === 'on'){
+            const novoTreinador = await Treinador.create(req.body);
+            res.send('Treinador Criado');
+        }
+        if(req.body.userType === undefined){
+            const novoAluno = await Aluno.create(req.body);
+            res.send('Aluno criado');
         }
     }catch(e){
         console.log(e);
