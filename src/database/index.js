@@ -11,6 +11,7 @@ Aluno.init(connection);
 Treinador.init(connection);
 
 Aluno.associate(connection.models);
+Treinador.associate(connection.models);
 
  dbConnection = async (connection,app) => {
     try {

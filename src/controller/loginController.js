@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs/dist/bcrypt');
-const flash = require('connect-flash/lib/flash');
 const Aluno = require('../models/Aluno');
 const Treinador = require('../models/Treinador');
 const User = require('../models/User')
@@ -42,13 +40,30 @@ exports.registerIndex = (req,res) => {
 
 exports.register = async (req,res) => {
     try{
+        if(await (await Treinador.findAll({where:{email: req.body.email}})).length > 0 || await Aluno.findAll({where:{email:req.body.email}}) > 0){
+            req.flash('errors',['Email Já Utilizado'])
+            req.session.save(function(){
+                return res.redirect('/register')
+            });
+            return;
+        }
+
         if(req.body.userType === 'on'){
             const novoTreinador = await Treinador.create(req.body);
-            res.send('Treinador Criado');
+            req.flash('sucess',['Treinador Cadastado com sucesso'])
+            req.session.save(()=>{
+               return res.redirect('/');
+            })
+            return;
         }
         if(req.body.userType === undefined){
+            console.log(req.body)
             const novoAluno = await Aluno.create(req.body);
-            res.send('Aluno criado');
+            req.flash('sucess',['Aluno Cadastado com sucesso'])
+            req.session.save(()=>{
+               return res.redirect('/');
+            })
+            return;
         }
     }catch(e){
         console.log(e);

@@ -9,6 +9,7 @@
         <div class="col-lg-8 mt-3">
           <h1 class="text-center">Login</h1>
           <p class="text-center lead">Realizar login</p>
+          <%- include('includes/messages') %> 
           <form action="/register/register" method="post">
             <input type="hidden" name="_csrf" value=<%=csrfToken %>>
             <div class="mb-3">
@@ -29,7 +30,7 @@
                 </div>
               </div>
               <div class="mb-3">
-                <select name="treinadorId" class="form-select" aria-label="Default select example">
+                <select name="treinador_id" class="form-select" aria-label="Default select example">
                   <option selected>Selecione o seu Treinador</option>
                   <% treinadoresList.forEach(treinador => { %> 
                   <option value=<%= treinador.dataValues.id%> ><%= treinador.dataValues.name%> </option>

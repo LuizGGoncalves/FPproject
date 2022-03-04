@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      alunoActive: {
+      aluno_active: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
         allowNull: false
@@ -40,17 +40,19 @@ module.exports = {
         defaultValue: 0,
         allowNull: true
       },
-      activeTraining: {
+      active_training: {
         type: Sequelize.STRING,
         defaultValue: '',
         allowNull: true
       },
-      treinadorId:{
+      treinador_id:{
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: "treinadores",
           key: "id"
-        }
+        },
+        onUpdate: 'CASCADE',
       },
       created_at: {
         type: Sequelize.DATE,
@@ -65,5 +67,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('alunos');
   }
 };

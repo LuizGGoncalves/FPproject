@@ -31,6 +31,9 @@ class Treinador extends Model {
         })
         return this;
     }
+    static associate(models){
+        this.hasMany(models.Aluno,{foreignKey: 'treinador_id', as: 'alunos'});
+    }
 }
 
 
