@@ -1,28 +1,41 @@
 const Aluno = require('../models/Aluno');
 const Treinador = require('../models/Treinador');
 const User = require('../models/User')
+const bcrypt = require('bcryptjs');
 
 exports.index = (req,res) => {
     res.render('login');
 }
 exports.login = async (req,res) => {
     try{
-        const usuario = await User.findOne({where: { email: req.body.email}});
-        if(!usuario){
-            console.log('Usuario nao encontrado')
-            flash()
-            return;}
-        if(!bcrypt.compareSync(req.body.password,usuario.hashPassword)){
-            console.log('Erro ao logar');
+        const treinador = await Treinador.findOne({where: { email: req.body.email}});
+        const aluno = await Aluno.findOne({where:{ email : req.body.email}});
+
+        if(!treinador && !aluno){
+            req.flash('errors','Usuario Nao encontrado');
+            req.session.save(()=>{
+                return res.redirect('/login')
+            })
+            return
+        }
+        if(!bcrypt.compareSync(req.body.password,aluno.hashPassword) || !bcrypt.compareSync(req.body.password,treinador.hashPassword) ){
+            req.flash('errors','Usuario ou senha incorretos')
+            req.session.save(()=>{
+                return res.redirect('/login')
+            })
             return;
         }
         req.session.user = usuario;
         req.session.save(()=>{
-            console.log('Funcionou')
-            return res.redirect('/')
+            req.flash('sucess',`Seja Bem vindo ${usuario.name}`)
+            req.session.save(()=>{
+              return  res.redirect('/');
+            })
+            return;
         })
 
     }catch(e){
+        console.log(e)
         res.send(req.body)
     }
 }
@@ -57,7 +70,6 @@ exports.register = async (req,res) => {
             return;
         }
         if(req.body.userType === undefined){
-            console.log(req.body)
             const novoAluno = await Aluno.create(req.body);
             req.flash('sucess',['Aluno Cadastado com sucesso'])
             req.session.save(()=>{
@@ -66,7 +78,11 @@ exports.register = async (req,res) => {
             return;
         }
     }catch(e){
-        console.log(e);
-        res.send('deu ruim mano',e)
+        e.errors.forEach(erro => {
+            req.flash('errors',erro.message)
+        });
+        req.session.save(()=>{
+            return res.redirect('/register');
+         })
     }
 }

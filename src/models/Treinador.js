@@ -8,11 +8,22 @@ class Treinador extends Model {
         super.init({
             name: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: false,
+                validate: {
+                    len:{
+                        args: [3, 255],
+                        msg: 'O Campo Nome Nao Pode Ser Vazio'
+                    }
+                },
             },
             email: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: false,
+                validate: {
+                    isEmail: {
+                        msg: 'Email nao Valido'
+                    }
+                }
             },
             hashPassword: {
                 type: DataTypes.STRING,
@@ -22,6 +33,12 @@ class Treinador extends Model {
             password: {
                 type: DataTypes.VIRTUAL,
                 defaultValue: '',
+                validate: {
+                    len: {
+                        args: [6, 25],
+                        msg: 'A senha deve conter entre 6 a 25 caracteres',
+                    }
+                }
             },           
         }, { sequelize, tableName:"treinadores"});
         this.addHook('beforeSave', async (treinador) => {
