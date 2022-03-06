@@ -10,7 +10,7 @@ exports.login = async (req,res) => {
     try{
         const treinador = await Treinador.findOne({where: { email: req.body.email}});
         const aluno = await Aluno.findOne({where:{ email : req.body.email}});
-
+        let userIsTreinador
         if(!treinador && !aluno){
             req.flash('errors','Usuario Nao encontrado');
             req.session.save(()=>{
@@ -18,21 +18,27 @@ exports.login = async (req,res) => {
             })
             return
         }
-        if(!bcrypt.compareSync(req.body.password,aluno.hashPassword) || !bcrypt.compareSync(req.body.password,treinador.hashPassword) ){
+        if(treinador){
+            user = treinador
+            userIsTreinador = true;
+        }
+        if(aluno){
+            user = aluno
+            userIsTreinador = false;
+        }
+        if(!bcrypt.compareSync(req.body.password,user.hashPassword) ){
             req.flash('errors','Usuario ou senha incorretos')
             req.session.save(()=>{
                 return res.redirect('/login')
             })
             return;
         }
-        req.session.user = usuario;
-        req.session.save(()=>{
-            req.flash('sucess',`Seja Bem vindo ${usuario.name}`)
+        req.session.user = user;
+        req.session.userIsTreinador = userIsTreinador
             req.session.save(()=>{
               return  res.redirect('/');
             })
             return;
-        })
 
     }catch(e){
         console.log(e)

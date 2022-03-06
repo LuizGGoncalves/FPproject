@@ -74,11 +74,11 @@ class Aluno extends Model{
     }
     static associate(models){
         this.belongsTo(models.Treinador, { foreignKey: 'treinador_id', as: 'treinador'});
-    }
 
-    static validAluno(body){
-         body.email
+        this.hasMany(models.Treino,
+            {foreignKey: 'aluno_id',
+          as: 'treino'})
+        }
     }
-}
 
 module.exports = Aluno
