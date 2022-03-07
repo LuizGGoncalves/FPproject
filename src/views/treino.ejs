@@ -5,15 +5,57 @@
                 <div class="col-lg-2 mt-3"></div>
 
                 <div class="col-lg-8 mt-3">
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <a class="mx-auto" href="/treino/create">
-                            <button class="btn btn-primary px-5" type="button">Criar Treino</button>
-                        </a>
-                    </div>
+                    <h1>
+                        <%= `Treinos Registrados de ${aluno.name}` %>
+                    </h1>
+
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Criado em</th>
+                                <th scope="col">Editado em</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Definir como Atual</th>
+                                <th scope="col">Deletar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if(treinos){ %>
+                                <% treinos.forEach(treino=> { %>
+                                    <tr>
+                                        <td class="text-center">
+                                            <%= treino.createdAt %>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= treino.updatedAt %>
+                                        </td>
+                                        <td>
+                                            <a href=<%=`/treino/show/${treino.id}`%>>
+                                                <button type="button" class="btn btn-sm btn-outline-light">Visualizar
+                                                    </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href=<%=`/exercicio/edit/${aluno.id}/${treino.id}`%>>
+                                                <button type="button" class="btn btn-sm btn-outline-light">Definir Atual
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href=<%=`/exercicio/delet/${treino.id}`%>>
+                                                <button type="button" class="btn btn-sm btn-outline-light">Deletar
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } %>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-lg-2 mt-3"></div>
             </div>
         </div>
 
-        
+
         <%- include('includes/footer') %>
