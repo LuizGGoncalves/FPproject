@@ -12,6 +12,7 @@ exports.middlewareVariaveis = (req,res,next) => {
          res.locals.userIsTreinador = req.session.userIsTreinador
      }else{
          res.locals.user = null
+         res.locals.userIsTreinador = null
      }
      next();
 }

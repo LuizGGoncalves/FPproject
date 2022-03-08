@@ -48,7 +48,7 @@ exports.login = async (req,res) => {
 exports.logout = async (req,res) => {
     try{
         req.session.destroy();
-        res.redirect('/')
+        res.redirect('/login')
     }catch(e){
         console.log('Erro ao deletar o Usuario');
     }

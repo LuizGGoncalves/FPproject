@@ -20,40 +20,46 @@
               <%= user.email %>
             </a>
           </li>
-          <% }else{ %>
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Nome do Usuario </h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <% if(userIsTreinador) { %>
+            <li class="nav-item">
+              <a class="nav-link" href=" <%=`/alunos`%>  ">Alunos</a>
+            </li>
+            <% }else { %>
+              <li class="nav-item">
+                <a class="nav-link" href=<%=`/treino/index/${user.id}`%>>Treino</a>
+              </li>
+              <% if(user) { %>
+                <li class="nav-item">
+                  <a class="nav-link" href=<%=`/alunoStatus/${user.id}`%>>Progresso</a>
+                </li>
+                <% } %>
+                  <% } %>
+                    <li class="nav-item">
+                      <% if(user){ %>
+                        <a href="/login/logout">
+                          <button type="button" class="btn btn-outline-danger">LogOut</button>
+                        </a>
+                        <% }else {%>
+
+                          <% } %>
+                            <% }else{ %>
+                              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Seja Bem vindo Ao Fitness Partner
+                              </h5>
+                              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"> Email Usuario</a>
+            <a class="nav-link active" aria-current="page" href="#"> Seu Gerenciador de treinos pessoal</a>
           </li>
+          <a href="/login">
+            <button type="button" class="btn-lg btn-outline-success mx-2 my-2">LogIn</button>
+          </a>
+          <a href="/register">
+            <button type="button" class="btn-lg btn-outline-primary mx-2">Registro</button>
+          </a>
           <% } %>
-            <li class="nav-item">
-              <a class="nav-link" href="/treino">Treino</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Historico</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Acompanhamento</a>
-            </li>
-            <li class="nav-item">
-              <% if(user){ %>
-                <a href="/login/logout">
-                  <button type="button" class="btn btn-outline-danger">LogOut</button>
-                </a>
-                <% }else {%>
-                  <a href="/login">
-                  <button type="button" class="btn-lg btn-outline-success mx-2 my-2">LogIn</button>
-                  </a>
-                  <br>
-                  <a href="/register">
-                    <button type="button" class="btn-lg btn-outline-primary mx-2">Registro</button>
-                  </a>
-                  <% } %>
-            </li>
         </ul>
       </div>
     </div>
