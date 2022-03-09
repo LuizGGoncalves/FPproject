@@ -15,7 +15,7 @@ route.get('/register',findTreinadores,loginController.registerIndex);
 route.post('/register/register',loginController.register);
 route.get('/login/logout',loginController.logout);
 route.get('/treino/index/:id',checkLogin,treinoController.index);
-route.get('/treino/create/:id',checkTreinador ,treinoController.create);
+route.post('/treino/create/:id',checkTreinador ,treinoController.create);
 route.get('/treino/show/:id',checkLogin, treinoController.showTreino);
 route.post('/exercicio/create/:id',exercicioController.create);
 route.get('/exercicio/edit/:id', exercicioController.editIndex);

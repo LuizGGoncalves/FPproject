@@ -3,6 +3,11 @@ const { Model, DataTypes } = require('sequelize');
 
     static init(sequelize){
       super.init({
+        nome:{
+          type: DataTypes.STRING,
+          allowNull:false,
+        }
+
       },{sequelize})
     }
     static associate(models) {

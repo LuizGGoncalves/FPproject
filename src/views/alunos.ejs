@@ -6,57 +6,84 @@
 
                 <div class="col-lg-8 mt-3">
                     <h1>Lista de Alunos</h1>
-                            <table class="table table-dark table-hover">
-                                <thead>
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">peso</th>
+                                <th scope="col">altura</th>
+                                <th scope="col">IMC</th>
+                                <th scope="col">Treino Atual</th>
+                                <th scope="col">Aluno Ativo</th>
+                                <th scope="col">Modificar</th>
+                                <th scope="col">Criar novo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if(alunos){ %>
+                                <% alunos.forEach(aluno=> { %>
                                     <tr>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">peso</th>
-                                        <th scope="col">altura</th>
-                                        <th scope="col">IMC</th>
-                                        <th scope="col">Treino Atual</th>
-                                        <th scope="col">Aluno Ativo</th>
-                                        <th scope="col">Modificar</th>
-                                        <th scope="col">Criar novo</th>
+                                        <td class="text-center">
+                                            <%= aluno.name %>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= aluno.peso %>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= aluno.altura%>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= aluno.imc%>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= aluno.activeTraining%>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= aluno.alunoActive%>
+                                        </td>
+                                        <td>
+                                            <a href=<%=`/treino/index/${aluno.id}`%>>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-outline-light">Visualizar</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                                data-bs-target="#NewTreinoModal" valor="<%= aluno.id %>"> Cria novo
+                                            </button>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <% if(alunos){ %>
-                                        <% alunos.forEach(aluno=> { %>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <%= aluno.name %>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%= aluno.peso %>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%= aluno.altura%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%= aluno.imc%>
-                                                </td>
-                                                <td class="text-center">
-                                                  <%= aluno.activeTraining%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%= aluno.alunoActive%>
-                                                </td>
-                                                <td>
-                                                    <a href= <%=`/treino/index/${aluno.id}`%>>
-                                                        <button type="button" class="btn btn-sm btn-outline-light">Visualizar</button>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href= <%=`/treino/create/${aluno.id}`%>>
-                                                        <button type="button" class="btn btn-sm btn-outline-light">Criar Treino</button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <% }); %>
-                                                <% } %>
-                                </tbody>
-                            </table>
-                <div class="col-lg-2 mt-3"></div>
-        </div>
-    </div>
-        <%- include('includes/footer') %>
+                                    <% }); %>
+                                        <% } %>
+                        </tbody>
+                    </table>
+                    <div class="col-lg-2 mt-3"></div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="NewTreinoModal" tabindex="-1"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Novo Treino</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post" id="newMessageForm">
+                                <input type="hidden" name="_csrf" value=<%=csrfToken %>>
+                                <div class="mb-3">
+                                    <label for="nome" class="col-form-label">Nome</label>
+                                    <input type="text" class="form-control" id="nome" name="nome">
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Criar Treino</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('includes/footer') %>

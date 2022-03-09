@@ -23,8 +23,11 @@ exports.showTreino = async (req,res) => {
 
 exports.create =  async (req,res) => {
     try{
-    const novoTreino =  await Treino.create({aluno_id:req.params.id})
-    res.send(novoTreino);
+    const novoTreino =  await Treino.create({
+        aluno_id:req.params.id,
+        nome: req.body.name,
+    })
+    res.redirect(`/treino/show/${novoTreino.id}`);
     }catch(e){
         console.log(e);
     }
