@@ -7,7 +7,6 @@ const { Model, DataTypes } = require('sequelize');
           type: DataTypes.STRING,
           allowNull:false,
         }
-
       },{sequelize})
     }
     static associate(models) {

@@ -12,10 +12,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "exercicios",
+          model: "treinos",
           key: 'id',
         },
-        onUpdate: 'CASCADE',
       },
       grupo: {
         type: Sequelize.STRING

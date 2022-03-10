@@ -17,9 +17,11 @@ route.get('/login/logout',loginController.logout);
 route.get('/treino/index/:id',checkLogin,treinoController.index);
 route.post('/treino/create/:id',checkTreinador ,treinoController.create);
 route.get('/treino/show/:id',checkLogin, treinoController.showTreino);
+route.get('/treino/delet/:id',checkTreinador,treinoController.delet);
 route.post('/exercicio/create/:id',exercicioController.create);
 route.get('/exercicio/edit/:id', exercicioController.editIndex);
 route.post('/exercicio/edit/:id',exercicioController.edit)
 route.get('/alunos',checkTreinador,alunoController.index);
+route.get('/treino/set/:alunoId/:treinoId',checkTreinador,alunoController.defineTreino)
 
 module.exports = route;
