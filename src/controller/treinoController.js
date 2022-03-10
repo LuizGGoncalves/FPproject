@@ -16,7 +16,8 @@ exports.showTreino = async (req, res) => {
     try {
         const listaExercicio = await Exercicio.findAll({ where: { treino_id: req.params.id }, order: [['grupo', 'ASC']] })
         const treino = await Treino.findOne({ where: { id: req.params.id } })
-        res.render('exercicios', { listaExercicio, treino })
+        const aluno = await Aluno.findOne({where:{id: treino.aluno_id},attributes:['name']})
+        res.render('exercicios', { listaExercicio, treino, aluno })
     } catch (e) {
         console.log(e);
     }

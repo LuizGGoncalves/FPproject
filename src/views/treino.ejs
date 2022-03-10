@@ -16,50 +16,88 @@
                                 <th scope="col">Criado em</th>
                                 <th scope="col">Editado em</th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
+                                <% if(userIsTreinador) { %>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <% } %>
                             </tr>
                         </thead>
                         <tbody>
                             <% if(treinos){ %>
                                 <% treinos.forEach(treino=> { %>
                                     <tr>
-                                        <td class="text-center">
-                                           <%= treino.nome %>  
+                                        <td>
+                                            <%= treino.nome %>
                                         </td>
-                                        <td class="text-center">
+                                        <td>
                                             <%= treino.createdAt %>
                                         </td>
-                                        <td class="text-center">
+                                        <td>
                                             <%= treino.updatedAt %>
                                         </td>
                                         <td>
                                             <a href=<%=`/treino/show/${treino.id}`%>>
                                                 <button type="button" class="btn btn-sm btn-outline-light">Visualizar
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <% if(userIsTreinador) { %>
+                                            <td>
+                                                <a href=<%=`/treino/set/${aluno.id}/${treino.id}`%>>
+                                                    <button type="button" class="btn btn-sm btn-outline-light">Definir
+                                                        Atual
                                                     </button>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href=<%=`/treino/set/${aluno.id}/${treino.id}`%>>
-                                                <button type="button" class="btn btn-sm btn-outline-light">Definir Atual
-                                                </button>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href=<%=`/treino/delet/${treino.id}`%>>
-                                                <button type="button" class="btn btn-sm btn-outline-light">Deletar
-                                                </button>
-                                            </a>
-                                        </td>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href=<%=`/treino/delet/${treino.id}`%>>
+                                                    <button type="button" class="btn btn-sm btn-outline-light">Deletar
+                                                    </button>
+                                                </a>
+                                            </td>
+                                            <% } %>
                                     </tr>
                                     <% }); %>
                                         <% } %>
                         </tbody>
                     </table>
+                    <% if(userIsTreinador) {%>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                                data-bs-target="#NewTreinoModal" valor="<%=aluno.id %>"> Cria novo
+                            </button>
+                        </div>
+                        <div class="d-grid gap-2 col-6 mt-2 mx-auto">
+                            <a href='/alunos' class="btn btn-outline-dark" type="button">Retornar aos alunos</a>
+                        </div>
+                        <% } %>
                 </div>
                 <div class="col-lg-2 mt-3"></div>
             </div>
         </div>
-
-
-        <%- include('includes/footer') %>
+        <% if(userIsTreinador) {%>
+            <div class="modal fade" id="NewTreinoModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Novo Treino</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post" id="newMessageForm">
+                                <input type="hidden" name="_csrf" value=<%=csrfToken %>>
+                                <div class="mb-3">
+                                    <label for="nome" class="col-form-label">Nome</label>
+                                    <input type="text" class="form-control" id="nome" name="nome">
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Criar Treino</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+                <%- include('includes/footer') %>
