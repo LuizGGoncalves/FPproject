@@ -47,10 +47,12 @@ app.use(csrfMiddleware);
 app.use(middlewareVariaveis);
 
 /* Inicio Servidor */
+const port = process.env.PORT || 3000
+
 dbConnection(connection,app);
 app.on('DbReady',()=>{
     app.use(routes);
-    app.listen(3000,() =>{
+    app.listen(port,() =>{
         console.log('Acessar http://localhost:3000/')
     })
 });
