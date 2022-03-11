@@ -6,7 +6,14 @@ const Treinador = require('../models/Treinador')
 const Treino = require('../models/Treino')
 const Exercicio = require('../models/Exercicio')
 
-const connection = new Sequelize(dbConfig);
+const connection = new Sequelize(process.env.DATABASE_URL,{
+  storage:'./session.mysql',
+  dialect: 'mysql',
+  protocol: 'mysql',
+  dialectOptions: {
+    ssl: true
+}
+});
 
 User.init(connection);
 Aluno.init(connection);
