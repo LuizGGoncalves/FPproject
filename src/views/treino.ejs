@@ -13,10 +13,12 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nome</th>
+                                <th scope="col">Duração</th>
                                 <th scope="col">Criado em</th>
                                 <th scope="col">Editado em</th>
                                 <th scope="col"></th>
                                 <% if(userIsTreinador) { %>
+                                    <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                     <% } %>
@@ -28,6 +30,9 @@
                                     <tr>
                                         <td>
                                             <%= treino.nome %>
+                                        </td>
+                                        <td>
+                                            <%= treino.duracao %> T
                                         </td>
                                         <td>
                                             <%= treino.createdAt %>
@@ -52,6 +57,12 @@
                                             <td>
                                                 <a href=<%=`/treino/delet/${treino.id}`%>>
                                                     <button type="button" class="btn btn-sm btn-outline-light">Deletar
+                                                    </button>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href=<%=`/treino/edit/${treino.id}`%>>
+                                                    <button type="button" class="btn btn-sm btn-outline-light">Editar
                                                     </button>
                                                 </a>
                                             </td>
@@ -84,11 +95,15 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="post" id="newMessageForm">
+                            <form action=<%= `/treino/create/${aluno.id}` %>  method="post" id="newMessageForm">
                                 <input type="hidden" name="_csrf" value=<%=csrfToken %>>
                                 <div class="mb-3">
                                     <label for="nome" class="col-form-label">Nome</label>
                                     <input type="text" class="form-control" id="nome" name="nome">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="duracao" class="col-form-label">Duraçao em treinos</label>
+                                    <input type="number" class="form-control" id="duracao" name="duracao">
                                 </div>
                         </div>
                         <div class="modal-footer">

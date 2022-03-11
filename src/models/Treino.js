@@ -6,6 +6,10 @@ const { Model, DataTypes } = require('sequelize');
         nome:{
           type: DataTypes.STRING,
           allowNull:false,
+        },
+        duracao:{
+          type: DataTypes.INTEGER,
+          allowNull:false,
         }
       },{sequelize})
     }

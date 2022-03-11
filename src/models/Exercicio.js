@@ -7,7 +7,8 @@ class Exercicio extends Model {
       nome: DataTypes.STRING,
       desc: DataTypes.STRING,
       serie: DataTypes.INTEGER,
-      repeticao: DataTypes.INTEGER
+      repeticao: DataTypes.INTEGER,
+      peso: DataTypes.INTEGER
     }, { sequelize, })
   }
   static associate(models) {

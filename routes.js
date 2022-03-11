@@ -23,6 +23,8 @@ route.get('/alunos',checkTreinador,alunoController.index);
 
 route.get('/treino/index/:id',checkLogin,treinoController.index);
 route.post('/treino/create/:id',checkTreinador ,treinoController.create);
+route.get('/treino/edit/:id',checkTreinador, treinoController.editIndex);
+route.post('/treino/edit/:id',checkTreinador, treinoController.upDate);
 route.get('/treino/show/:id',checkLogin, treinoController.showTreino);
 route.get('/treino/delet/:id',checkTreinador,treinoController.delet);
 route.get('/treino/set/:alunoId/:treinoId',checkTreinador,alunoController.defineTreino)

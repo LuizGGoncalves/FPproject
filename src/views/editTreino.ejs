@@ -1,0 +1,30 @@
+<%- include('includes/head') %>
+    <%- include('includes/nav') %>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-2 mt-3"></div>
+
+                <div class="col-lg-8 mt-3">
+                    <h1 class="text-center">Editar Treino</h1>
+                    <form action=<%=`/treino/edit/${treino.id}`%> method="post">
+                        <input type="hidden" name="_csrf" value=<%=csrfToken %>>
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome do Treino</label>
+                            <input value="<%= treino.nome %> " name="nome" type="text" class="form-control" id="nome">
+                            <div class="mb-3">
+                                <label for="duracao" class="form-label">Duraçao do Treino</label>
+                                <input value="<%= treino.duracao %>" name="duracao" type="number" class="form-control"
+                                    id="duracao">
+                            </div>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 mt-3"></div>
+        </div>
+        <%- include('includes/footer') %>
+            <%- include('includes/footer') %>

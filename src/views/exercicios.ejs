@@ -17,8 +17,12 @@
                                 <th scope="col">Descriçao</th>
                                 <th scope="col">Serie</th>
                                 <th scope="col">Repetiçao</th>
+                                <th scope="col">Peso</th>
+                                <th scope="col"></th>
+                                <% if(userIsTreinador) { %>  
                                 <th scope="colgroup"></th>
                                 <th scope="colgroup"></th>
+                                <% } %> 
                             </tr>
                         </thead>
                         <tbody>
@@ -40,16 +44,27 @@
                                         <td class="text-center">
                                             <%= exercicio.repeticao %>
                                         </td>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= exercicio.peso %>
+                                        </td>
+                                        <td>
+                                            <a href=<%=`/exercicio/edit/${exercicio.id}`%>>
+                                                <button type="button" class="btn btn-sm btn-outline-light">Alterar o peso
+                                                </button>
+                                        </td>   
+                                        <% if(userIsTreinador) {%> 
                                         <td>
                                             <a href=<%=`/exercicio/edit/${exercicio.id}`%>>
                                                 <button type="button" class="btn btn-sm btn-outline-light">Editar
                                                 </button>
-                                        </td>
+                                        </td>   
                                         <td>
                                             <a href=<%=`/treino/delet/${exercicio.id}`%>>
                                                 <button type="button" class="btn btn-sm btn btn-danger">Deletar
                                                 </button>
                                         </td>
+                                        <% } %> 
                                     </tr>
                                     <% }); %>
                                         <% } %>
@@ -106,8 +121,9 @@
                             </div>
                         </div>
                         <% } %>
-                            <div class="d-grid gap-2 col-6 mt-2 mx-auto"> 
-                                    <a href=<%=`/treino/index/${treino.aluno_id}`%> class="btn btn-outline-dark" type="button">Retornar aos Treinos</a>
+                            <div class="d-grid gap-2 col-6 mt-2 mx-auto">
+                                <a href=<%=`/treino/index/${treino.aluno_id}`%> class="btn btn-outline-dark"
+                                    type="button">Retornar aos Treinos</a>
                             </div>
                 </div>
                 <div class="col-lg-2 mt-3"></div>

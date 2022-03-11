@@ -34,6 +34,7 @@ exports.edit = async(req,res) => {
             desc: req.body.desc,
             serie: req.body.serie,
             repeticao: req.body.repeticao,
+            peso: req.body.peso
         });
         await exercicioAntigo.save();
         res.redirect(`/treino/show/${exercicioAntigo.treino_id}`)
