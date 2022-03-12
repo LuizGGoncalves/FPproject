@@ -8,14 +8,14 @@ const app = express();
 const csrf = require('csurf');
 const routes = require('./routes');
 const { csrfMiddleware,middlewareVariaveis } = require('./src/middlewares/middleware');
-
+const  url = new URL(process.env.JAWSDB_URL)
 /*Banco de dados*/
 const sessionStore = new MySqlStore({
-    host:'localhost',
-    port: 3306,
-    user:'root',
-    password: '',
-    database:'fpproject',
+    host:url.hostname,
+    port: url.port,
+    user:url.username,
+    password: url.password,
+    database: url.pathname.slice(1),
 })
 const sessionOptions = session({
     key: 'session_cookie_name',
