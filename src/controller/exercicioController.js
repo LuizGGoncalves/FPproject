@@ -9,6 +9,7 @@ exports.create = async (req,res) => {
         desc: req.body.desc,
         serie: req.body.serie,
         repeticao: req.body.repeticao,
+        peso: req.body.peso
     });
     res.redirect(`/treino/show/${req.params.id}`);
     }catch(e){
