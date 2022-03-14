@@ -11,18 +11,41 @@
                             varios alunos , permitindo alteraçoes rapidas e pontuais nos treinos e facilitando a
                             visualizaçao dos treinos e exercicios aos seus alunos.
                         </span><br>
-                        <div class="d-grid gap-2 col-6 mt-5 mx-auto">
-                            <H5>Já possui uma conta </H5>
-                            <span>Deseja visualziar seu treino ou ditar o treino de algum lado utilize o botao abaixo
-                                para fazer Login</span>
-                            <a href='/login' class="btn btn-outline-dark" type="button">Realizar Login</a>
-                        </div>
-                        <div class="d-grid gap-2 col-6 mt-5 mx-auto">
-                            <H5>Nao Possui uma conta </H5>
-                            <span>Se voce ainda nao possui uma conta faça um registro agora mesmo para ter acesso a
-                                treinos personalizados</span>
-                            <a href='/register' class="btn btn-outline-dark" type="button">Registrar</a>
-                        </div>
+                        <% if (user) { %>
+                            <% if (userIsTreinador) { %>
+                                <div class="d-grid gap-2 col-6 mt-5 mx-auto">
+                                    <H5>Alunos </H5>
+                                    <span>Deseja visualizar uma lista de todos os seus alunos clilcar no botao
+                                        abaixo</span>
+                                    <a href='/alunos' class="btn btn-outline-dark" type="button">Alunos</a>
+                                </div>
+                                <% }else { %>
+                                    <div class="d-grid gap-2 col-6 mt-5 mx-auto">
+                                        <H5>Treino </H5>
+                                        <span>Deseja visualizar seu treino clique no botao baixo</span>
+                                        <a href=<%=`treino/index/${user.id}` %> class="btn btn-outline-dark"
+                                            type="button">Treino</a>
+                                    </div>
+                                    <% } %>
+                                        <% } else { %>
+                                            <div class="d-grid gap-2 col-6 mt-5 mx-auto">
+                                                <H5>Já possui uma conta </H5>
+                                                <span>Deseja visualziar seu treino ou ditar o treino de algum lado
+                                                    utilize o botao
+                                                    abaixo
+                                                    para fazer Login</span>
+                                                <a href='/login' class="btn btn-outline-dark" type="button">Realizar
+                                                    Login</a>
+                                            </div>
+                                            <div class="d-grid gap-2 col-6 mt-5 mx-auto">
+                                                <H5>Nao Possui uma conta </H5>
+                                                <span>Se voce ainda nao possui uma conta faça um registro agora mesmo
+                                                    para ter acesso a
+                                                    treinos personalizados</span>
+                                                <a href='/register' class="btn btn-outline-dark"
+                                                    type="button">Registrar</a>
+                                            </div>
+                                            <% } %> 
                 </div>
                 <div class="col-lg-2 mt-3"></div>
             </div>
